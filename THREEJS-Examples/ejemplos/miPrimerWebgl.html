@@ -24,7 +24,6 @@
 		<a onclick="directlight.position.set(1, 1, 0).normalize();">right</a> |
 		<a onclick="directlight.position.set(0, 1, 1).normalize();">left</a> | <br/>
 		Materials: 
-		
 		<a onclick="directlight.position.set(0, 1, 0).normalize();">...</a> |
 		<a onclick="directlight.position.set(1, 1, 0).normalize();">...</a> |
 		<a onclick="directlight.position.set(0, 1, 1).normalize();">...</a> | <br/>
@@ -62,17 +61,16 @@
 				camera.position.z = 500;
 				
 				scene.add(camera);
+	
 				// setting default speed
-
 				speed = -0.0002;
 
 				// lights 
-
 				pointlight = new THREE.PointLight(0xFFFFFF);
 				ambientlight = new THREE.AmbientLight(0x101010);
 				directlight = new THREE.DirectionalLight(0xFFFFFF, 1);
 				// lights from the top at half intensity (0.5)
-
+				
 				directlight.position.set(1, 1, 0).normalize();
 				scene.add(pointlight);
 				scene.add(ambientlight);
@@ -86,7 +84,6 @@
 				// simple ball
 				sphere = new THREE.SphereGeometry(100, 32, 32);
 				addMesh(sphere, 1, -400, 0, 0, 0, 0, 0, new THREE.MeshPhongMaterial({ambient: 0x000000, color: 0xffffff, specular: 0x555555, shininess: 10}));
-				//addMesh( sphere, 1, -400, -200, 0, 0,0,0, new THREE.MeshLambertMaterial( { color: 0xffffff } ) );
 				
 				// render
 				renderer = new THREE.WebGLRenderer();
@@ -124,7 +121,6 @@
 			function render() {
 	
 
-				// timer
 				var timer = speed * Date.now();
 
 				camera.position.x += ( mouseX - camera.position.x) * .05;
