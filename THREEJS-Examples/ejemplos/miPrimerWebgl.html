@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 	<head>
-		<title>three.js - my first attempt - frankenstein </title>
+		<title>Ejemplo Three.js</title>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
-				color: #808080;
+				color: yellow;
 				font-family:Monospace;
 				font-size:13px;
 				text-align:center;
@@ -18,23 +17,22 @@
 		</style>
 	</head>
 	<body>
-		<div id="info">Simple lights, speed and materials settings<br/>
-		Lights:
-		<a onclick="directlight.position.set(0, 1, 0).normalize();">top</a> |
-		<a onclick="directlight.position.set(1, 1, 0).normalize();">right</a> |
-		<a onclick="directlight.position.set(0, 1, 1).normalize();">left</a> | <br/>
-		Materials: 
+		<div id="info">Opciones:<br/>
+		Luces:
+		<a onclick="directlight.position.set(0, 1, 0).normalize();">arriba</a> |
+		<a onclick="directlight.position.set(1, 1, 0).normalize();">derecha</a> |
+		<a onclick="directlight.position.set(0, 1, 1).normalize();">izquierda</a> | <br/>
+		Materiales: 
 		<a onclick="directlight.position.set(0, 1, 0).normalize();">...</a> |
 		<a onclick="directlight.position.set(1, 1, 0).normalize();">...</a> |
 		<a onclick="directlight.position.set(0, 1, 1).normalize();">...</a> | <br/>
-		Timer:
-		<a onclick="speed = -0.002 ;">faster</a> |
-		<a onclick="speed = -0.00002 ;">slower</a> |<br/>
+		Tiempo:
+		<a onclick="speed = -0.002 ;">rapido</a> |
+		<a onclick="speed = -0.00002 ;">lento</a> |<br/>
 		<a onclick="speed = -0.0002 ;">normal</a> |<br/>
 		</div>
 		
 		<div id="container"></div>
-		<div id="info"><a href="http://threejs.org" target="_blank">three.js</a> - my first demo</div>
 
 		<script src="../build/three.min.js"></script>
 		<script src="js/libs/stats.min.js"></script>
@@ -55,29 +53,35 @@
 
 			function init() {
 
-				container = document.getElementById('container');
-				scene = new THREE.Scene();
-				camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-				camera.position.z = 500;
+				container = document.getElementById('container');   //definimos contenedor para la escena
+				scene = new THREE.Scene();  //creamos la escena
+				camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 1, 10000);  //creamos la camara
+				//parametros --> angulo,aspecto,near,far ;)   near y far serían el plano cercano y lejano, definiendo el volumen de visión
 				
-				scene.add(camera);
+				camera.position.z = 500;  //definimos posicion de la camara en el eje z
+				
+				scene.add(camera);      //añadimos la camara a la escena
 	
-				// setting default speed
+				//velocidad por defecto
 				speed = -0.0002;
 
-				// lights 
-				pointlight = new THREE.PointLight(0xFFFFFF);
+				// luces
+				pointlight = new THREE.PointLight(0xFFFFFF);   //parametros --> hex, intensidad y distancia, los 2 últimos por defecto (1,0)
 				ambientlight = new THREE.AmbientLight(0x101010);
 				directlight = new THREE.DirectionalLight(0xFFFFFF, 1);
-				// lights from the top at half intensity (0.5)
+				// luces desde arriba intensidad=0.5
+				//threejsdoc.appspot.com/ --> ayuda
 				
 				directlight.position.set(1, 1, 0).normalize();
 				scene.add(pointlight);
 				scene.add(ambientlight);
-				scene.add(directlight);
+				scene.add(directlight);   //añadimos a la escena
 
 				// light ball
+				//malla ;)
 				lightmesh = new THREE.Mesh(new THREE.SphereGeometry(10, 16, 8), new THREE.MeshPhongMaterial( {color: 0xFFAA00}));
+				//parametros --> geometría, material
+				//modelo de Phong --> modelo de iluminación y sombreado que asigna brillo a los puntos de una sup modelada ;)
 				lightmesh.position = pointlight.position; 
 				scene.add(lightmesh);
 
@@ -85,11 +89,15 @@
 				sphere = new THREE.SphereGeometry(100, 32, 32);
 				addMesh(sphere, 1, -400, 0, 0, 0, 0, 0, new THREE.MeshPhongMaterial({ambient: 0x000000, color: 0xffffff, specular: 0x555555, shininess: 10}));
 				
+				//creamos la esfera ;)
+
 				// render
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize(window.innerWidth, window.innerHeight);
 				container.appendChild(renderer.domElement);
 				
+				//randerizamos
+
 				// stats
 				stats = new Stats();
 				stats.domElement.style.position = 'absolute';
